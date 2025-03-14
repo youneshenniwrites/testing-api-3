@@ -1,40 +1,50 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const getHighestProbabilityCountry = (countries) => {
+  if (!countries || countries.length === 0) return null;
+
+  return countries.reduce((max, item) =>
+    item.probability > max.probability ? item : max
+  );
+};
+
 function App() {
   const [query, setQuery] = useState("");
-  const [debouceValue, setDeboucedValue] = useState("");
-  const [results, setResults] = useState("");
+  const [debounceValue, setDebounceValue] = useState("");
   const [nationality, setNationality] = useState("");
-
-  const countryCode = results?.country?.reduce(
-    (max, item) => (item.probability > max.probability ? item : max),
-    results.country[0].country_id
-  );
 
   useEffect(() => {
     const getNationality = async () => {
-      if (debouceValue) {
+      if (!debounceValue) return;
+
+      try {
         const response = await fetch(
-          `https://api.nationalize.io/?name=${debouceValue}`
+          `https://api.nationalize.io/?name=${debounceValue}`
         );
+
         if (!response.ok) throw new Error("Failed to fetch data");
 
         const data = await response.json();
 
-        setResults(data);
+        const highestProbabilityCountry = getHighestProbabilityCountry(
+          data?.country
+        );
 
-        setNationality(countryCode);
+        setNationality(highestProbabilityCountry?.country_id || "Unknown");
+      } catch (error) {
+        console.error("Error fetching nationality:", error);
+        setNationality("Error fetching nationality");
       }
     };
 
     getNationality();
-  }, [countryCode, debouceValue]);
+  }, [debounceValue]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDeboucedValue(query);
-    }, [300]);
+      setDebounceValue(query);
+    }, 300);
 
     return () => clearTimeout(handler);
   }, [query]);
