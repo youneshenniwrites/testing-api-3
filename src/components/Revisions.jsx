@@ -5,6 +5,24 @@ export default function Revisions() {
   const debouncedValue = useDebounce(query, 300);
   const { users, loading, error } = useFetchUsers();
 
+  const countries = [
+    { country_id: "DZ", probability: 46 },
+    { country_id: "FR", probability: 18 },
+    { country_id: "EN", probability: 4 },
+  ];
+
+  const nationality = mostProbableCountry(countries).country_id;
+
+  const mostProbableCountry = (countries) => {
+    if (countries.length === 0) return null;
+
+    return countries.reduce((max, item) =>
+      item.probability > max.probability ? item : max
+    );
+  };
+
+  console.log(mostProbableCountry);
+
   const filteredUsers = users.filter((user) =>
     user.toLowerCase().includes(debouncedValue.toLowerCase())
   );
@@ -23,6 +41,7 @@ export default function Revisions() {
       {filteredUsers.map((user) => (
         <p>{user?.name}</p>
       ))}
+      <p>You are likely from: {nationality}</p>
     </div>
   );
 }
