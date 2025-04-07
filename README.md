@@ -129,7 +129,3 @@ We welcome contributions to this project! If you'd like to contribute, follow th
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Feel free to replace any placeholder text like `https://github.com/yourusername/nationality-finder.git` with the actual details. You can also adjust the **License** section based on the license you're using. Let me know if you need any more sections or adjustments to this README!
