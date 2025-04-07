@@ -6,7 +6,6 @@ A simple React application that uses the [Nationalize.io API](https://nationaliz
 
 ## Table of Contents
 
-- [Nationality Finder](#nationality-finder)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Technologies](#technologies)
