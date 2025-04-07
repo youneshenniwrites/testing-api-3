@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchNationality } from "../api/nationalityApi";
+import { fetchNationality } from "../api/nationalize";
 import { computeHighestProbabilityCountry } from "../utils/computeHighestProbabilityCountry";
 
 const useFetchNationality = (debounceValue) => {
