@@ -4,28 +4,36 @@ import { computeHighestProbabilityCountry } from "../utils/computeHighestProbabi
 
 const useFetchNationality = (debounceValue) => {
   const [nationality, setNationality] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getNationality = async () => {
-      if (!debounceValue) return;
+      if (!debounceValue) {
+        setNationality("");
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
 
       try {
         const data = await fetchNationality(debounceValue);
-        const highestProbabilityCountry = computeHighestProbabilityCountry(
-          data?.country
-        );
-
-        setNationality(highestProbabilityCountry?.country_id || "Unknown");
-      } catch (error) {
-        console.error("Error fetching nationality:", error);
-        setNationality("Error fetching nationality");
+        const highest = computeHighestProbabilityCountry(data?.country);
+        setNationality(highest?.country_id || "Unknown");
+      } catch (err) {
+        console.error("Error fetching nationality:", err);
+        setError("Something went wrong.");
+        setNationality("");
+      } finally {
+        setLoading(false);
       }
     };
 
     getNationality();
   }, [debounceValue]);
 
-  return nationality;
+  return { nationality, loading, error };
 };
 
 export default useFetchNationality;

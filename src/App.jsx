@@ -8,15 +8,24 @@ import NationalityResult from "./components/NationalityResult";
 function App() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
-  const nationality = useFetchNationality(debouncedQuery);
+  const { nationality, loading, error } = useFetchNationality(debouncedQuery);
+
+  if (loading) return <p className="text-gray-500 text-center">Loading...</p>;
+
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
-    <div>
+    <div className="max-w-lg mx-auto p-4 space-y-4">
       <NationalityInput
         query={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <NationalityResult nationality={nationality} />
+      {nationality && (
+        <NationalityResult
+          nationality={nationality}
+          className="border p-4 rounded-lg bg-white shadow-lg"
+        />
+      )}
     </div>
   );
 }
