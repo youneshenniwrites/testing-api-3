@@ -1,4 +1,4 @@
-import { API_BASE_URLS } from "../constants/api";
+import { API_BASE_URLS } from "../constants/urls";
 
 export const fetchNationality = async (name) => {
   if (!name) return null;
