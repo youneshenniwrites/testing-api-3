@@ -2,6 +2,13 @@
 
 A simple React application that uses the [Nationalize.io API](https://nationalize.io/) to predict the nationality of a name. The app fetches data from an API, processes it, and displays the most probable country based on the provided name.
 
+
+<img width="721" alt="Screenshot 2025-04-08 at 10 50 46" src="https://github.com/user-attachments/assets/d78645bc-bff4-4970-85f9-3865b5981c46" />
+
+
+<img width="708" alt="Screenshot 2025-04-08 at 10 52 42" src="https://github.com/user-attachments/assets/d76fedf3-aea5-40d3-88b2-118855eed946" />
+
+
 ---
 
 ## Table of Contents
